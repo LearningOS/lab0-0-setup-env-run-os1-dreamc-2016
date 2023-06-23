@@ -4,14 +4,16 @@
 
 */
 
-use log::{self, Level, LevelFilter, Log, Metadata, Record};
+use log::{self, Level, LevelFilter, Log, Metadata, Record}; // 引入log相关的结构体
 
 struct SimpleLogger;
-
+//  实现Log trait
 impl Log for SimpleLogger {
+    // 重写enabled方法，使得日志总是可用
     fn enabled(&self, _metadata: &Metadata) -> bool {
         true
     }
+    // 重写log方法，使得日志打印到控制台
     fn log(&self, record: &Record) {
         if !self.enabled(record.metadata()) {
             return;
@@ -30,9 +32,10 @@ impl Log for SimpleLogger {
             record.args(),
         );
     }
+    // 重写flush方法，使得日志总是刷新
     fn flush(&self) {}
 }
-
+//  初始化日志
 pub fn init() {
     static LOGGER: SimpleLogger = SimpleLogger;
     log::set_logger(&LOGGER).unwrap();
