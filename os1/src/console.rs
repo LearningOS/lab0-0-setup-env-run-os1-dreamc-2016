@@ -25,7 +25,6 @@ pub fn print(args: fmt::Arguments) {
 }
 
 #[macro_export] // 使得宏可以在其他模块中使用
-
 macro_rules! print {
     ($fmt: literal $(, $($arg: tt)+)?) => {
         $crate::console::print(format_args!($fmt $(, $($arg)+)?));
